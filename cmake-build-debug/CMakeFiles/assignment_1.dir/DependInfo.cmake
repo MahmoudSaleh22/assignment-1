@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/EngMahmoud/Downloads/My-Github/assignment-1/bmplib.cpp" "CMakeFiles/assignment_1.dir/bmplib.cpp.obj" "gcc" "CMakeFiles/assignment_1.dir/bmplib.cpp.obj.d"
-  "C:/Users/EngMahmoud/Downloads/My-Github/assignment-1/main.cpp" "CMakeFiles/assignment_1.dir/main.cpp.obj" "gcc" "CMakeFiles/assignment_1.dir/main.cpp.obj.d"
+  "C:/Users/EngMahmoud/Desktop/assignment-1/bmplib.cpp" "CMakeFiles/assignment_1.dir/bmplib.cpp.obj" "gcc" "CMakeFiles/assignment_1.dir/bmplib.cpp.obj.d"
+  "C:/Users/EngMahmoud/Desktop/assignment-1/main.cpp" "CMakeFiles/assignment_1.dir/main.cpp.obj" "gcc" "CMakeFiles/assignment_1.dir/main.cpp.obj.d"
   )
 
 # Targets to which this target links.

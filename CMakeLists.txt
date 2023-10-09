@@ -3,4 +3,4 @@ project(assignment_1)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(assignment_1 main.cpp bmplib.cpp bmplib.h)
+add_executable(assignment_1 main.cpp bmplib.cpp bmplib.h "names , ids, emails.h" "names, ids, emails.h")
