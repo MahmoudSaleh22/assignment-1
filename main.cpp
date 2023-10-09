@@ -49,6 +49,18 @@ public:
             }
         }
     }
+
+    // filter 2 : invert filter
+    void invert_filter()
+    {
+        for (int i = 0; i < SIZE; i++)
+        {
+            // Reflects pixels ( new pixel = 255 - old pixel)
+            for (int j = 0; j < SIZE; j++)
+                imgGS[i][j] = 255 - imgGS[i][j];
+        }
+    }
+
     // filter 4 : flip image filter
     void flip(){
         // choosing the direction
@@ -66,6 +78,7 @@ public:
                 }
             }
         }
+
         else if(direction == 2){
             /* we iterate over the columns and rows of the photo,
             * focusing on the left half of the image.
@@ -84,6 +97,44 @@ public:
             flip();
         }
     }
+
+
+    // filter 5 : Darken and Lighten Image
+    void Darken_and_Lighten_Image ()
+    {
+        // choose the filter wanted
+        cout <<"select a number :\n(1) lighten\n(2) darken\n";
+        int x;
+        cin >> x;
+
+        // this is the lightening filter
+        if (x == 1)
+        {
+            // 1. subtract full light value (255) - the original light value
+            // 2. add the result to the original light value
+            for (int i = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    imgGS[i][j] = imgGS[i][j] + (255 - imgGS[i][j])/2;
+                }
+
+            }
+        }
+        else
+        {
+            // divide the original by two
+            for (int i = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    imgGS[i][j] = imgGS[i][j]/2;
+                }
+
+            }
+        }
+    }
+
     void menu(){
         cout << "1-  Black & White Filter\n"
                 "2-  Invert Filter\n"
@@ -102,7 +153,8 @@ public:
                 "15- Skew Image Up  \n"
                 "16- Save the image to a file\n"
                 "0-  Exit\n"
-                "Please select a filter to apply or 0 to exit:";
+                "Please select a filter to apply or 0 to exit:\n"
+                "note : to save choose 16\n";
         string choice_s;cin>>choice_s;
         int choice=0;
         if(is_digits(choice_s)){
@@ -117,6 +169,7 @@ public:
             Black_n_white_filter();
         }
         else if (choice == 2){
+            invert_filter();
 
         }
         else if(choice == 3){
@@ -126,7 +179,7 @@ public:
             flip();
         }
         else if(choice == 5){
-
+            Darken_and_Lighten_Image ();
         }
         else if(choice == 6){
 

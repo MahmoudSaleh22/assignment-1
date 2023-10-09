@@ -43,19 +43,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2022.3.3\bin\cmake\win\x64\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2022.3.3\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\sirhe\Documents\My_Github\assignment-1
+CMAKE_SOURCE_DIR = C:\Users\EngMahmoud\Downloads\My-Github\assignment-1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\sirhe\Documents\My_Github\assignment-1\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\EngMahmoud\Downloads\My-Github\assignment-1\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/assignment_1.dir/depend.make
@@ -69,32 +69,32 @@ include CMakeFiles/assignment_1.dir/progress.make
 include CMakeFiles/assignment_1.dir/flags.make
 
 CMakeFiles/assignment_1.dir/main.cpp.obj: CMakeFiles/assignment_1.dir/flags.make
-CMakeFiles/assignment_1.dir/main.cpp.obj: C:/Users/sirhe/Documents/My_Github/assignment-1/main.cpp
+CMakeFiles/assignment_1.dir/main.cpp.obj: C:/Users/EngMahmoud/Downloads/My-Github/assignment-1/main.cpp
 CMakeFiles/assignment_1.dir/main.cpp.obj: CMakeFiles/assignment_1.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\sirhe\Documents\My_Github\assignment-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/assignment_1.dir/main.cpp.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/assignment_1.dir/main.cpp.obj -MF CMakeFiles\assignment_1.dir\main.cpp.obj.d -o CMakeFiles\assignment_1.dir\main.cpp.obj -c C:\Users\sirhe\Documents\My_Github\assignment-1\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\EngMahmoud\Downloads\My-Github\assignment-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/assignment_1.dir/main.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/assignment_1.dir/main.cpp.obj -MF CMakeFiles\assignment_1.dir\main.cpp.obj.d -o CMakeFiles\assignment_1.dir\main.cpp.obj -c C:\Users\EngMahmoud\Downloads\My-Github\assignment-1\main.cpp
 
 CMakeFiles/assignment_1.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/assignment_1.dir/main.cpp.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\sirhe\Documents\My_Github\assignment-1\main.cpp > CMakeFiles\assignment_1.dir\main.cpp.i
+	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\EngMahmoud\Downloads\My-Github\assignment-1\main.cpp > CMakeFiles\assignment_1.dir\main.cpp.i
 
 CMakeFiles/assignment_1.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/assignment_1.dir/main.cpp.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\sirhe\Documents\My_Github\assignment-1\main.cpp -o CMakeFiles\assignment_1.dir\main.cpp.s
+	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\EngMahmoud\Downloads\My-Github\assignment-1\main.cpp -o CMakeFiles\assignment_1.dir\main.cpp.s
 
 CMakeFiles/assignment_1.dir/bmplib.cpp.obj: CMakeFiles/assignment_1.dir/flags.make
-CMakeFiles/assignment_1.dir/bmplib.cpp.obj: C:/Users/sirhe/Documents/My_Github/assignment-1/bmplib.cpp
+CMakeFiles/assignment_1.dir/bmplib.cpp.obj: C:/Users/EngMahmoud/Downloads/My-Github/assignment-1/bmplib.cpp
 CMakeFiles/assignment_1.dir/bmplib.cpp.obj: CMakeFiles/assignment_1.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\sirhe\Documents\My_Github\assignment-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/assignment_1.dir/bmplib.cpp.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/assignment_1.dir/bmplib.cpp.obj -MF CMakeFiles\assignment_1.dir\bmplib.cpp.obj.d -o CMakeFiles\assignment_1.dir\bmplib.cpp.obj -c C:\Users\sirhe\Documents\My_Github\assignment-1\bmplib.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\EngMahmoud\Downloads\My-Github\assignment-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/assignment_1.dir/bmplib.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/assignment_1.dir/bmplib.cpp.obj -MF CMakeFiles\assignment_1.dir\bmplib.cpp.obj.d -o CMakeFiles\assignment_1.dir\bmplib.cpp.obj -c C:\Users\EngMahmoud\Downloads\My-Github\assignment-1\bmplib.cpp
 
 CMakeFiles/assignment_1.dir/bmplib.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/assignment_1.dir/bmplib.cpp.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\sirhe\Documents\My_Github\assignment-1\bmplib.cpp > CMakeFiles\assignment_1.dir\bmplib.cpp.i
+	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\EngMahmoud\Downloads\My-Github\assignment-1\bmplib.cpp > CMakeFiles\assignment_1.dir\bmplib.cpp.i
 
 CMakeFiles/assignment_1.dir/bmplib.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/assignment_1.dir/bmplib.cpp.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\sirhe\Documents\My_Github\assignment-1\bmplib.cpp -o CMakeFiles\assignment_1.dir\bmplib.cpp.s
+	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\EngMahmoud\Downloads\My-Github\assignment-1\bmplib.cpp -o CMakeFiles\assignment_1.dir\bmplib.cpp.s
 
 # Object files for target assignment_1
 assignment_1_OBJECTS = \
@@ -110,7 +110,7 @@ assignment_1.exe: CMakeFiles/assignment_1.dir/build.make
 assignment_1.exe: CMakeFiles/assignment_1.dir/linklibs.rsp
 assignment_1.exe: CMakeFiles/assignment_1.dir/objects1.rsp
 assignment_1.exe: CMakeFiles/assignment_1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\sirhe\Documents\My_Github\assignment-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable assignment_1.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\EngMahmoud\Downloads\My-Github\assignment-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable assignment_1.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\assignment_1.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -122,6 +122,6 @@ CMakeFiles/assignment_1.dir/clean:
 .PHONY : CMakeFiles/assignment_1.dir/clean
 
 CMakeFiles/assignment_1.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\sirhe\Documents\My_Github\assignment-1 C:\Users\sirhe\Documents\My_Github\assignment-1 C:\Users\sirhe\Documents\My_Github\assignment-1\cmake-build-debug C:\Users\sirhe\Documents\My_Github\assignment-1\cmake-build-debug C:\Users\sirhe\Documents\My_Github\assignment-1\cmake-build-debug\CMakeFiles\assignment_1.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\EngMahmoud\Downloads\My-Github\assignment-1 C:\Users\EngMahmoud\Downloads\My-Github\assignment-1 C:\Users\EngMahmoud\Downloads\My-Github\assignment-1\cmake-build-debug C:\Users\EngMahmoud\Downloads\My-Github\assignment-1\cmake-build-debug C:\Users\EngMahmoud\Downloads\My-Github\assignment-1\cmake-build-debug\CMakeFiles\assignment_1.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/assignment_1.dir/depend
 
