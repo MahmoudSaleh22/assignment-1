@@ -20,10 +20,10 @@ public:
         showGSBMP(imgGS);
     }
     void save_image () {
+        // the image will be saved at cmake files in tmp folder
         string imageFileName, path = "\\tmp\\";
-
         // Get gray scale result image target file name
-        cout << "Enter the result image name : ";
+        cout << "Enter the result image name(saved in tmp folder at cmake) : ";
         cin >> imageFileName;
         //adding the extension
         imageFileName += ".bmp";
@@ -204,7 +204,8 @@ public:
         cout << "Make your choice :\n"
                 "0-  Exit\n"
                 "1-  show image\n"
-                "2-  save image\n";
+                "2-  save image\n"
+                "3-  return to filter menu\n";
         string choice_s;
         cin >> choice_s;
         int choice = 0;
@@ -214,90 +215,96 @@ public:
             cout << "Invalid choice, please try again\n";
             menu2();
         }
-        if (choice == 1) {
+        if(choice == 1) {
             show_image();
-        } else if (choice == 2) {
+        }
+        else if(choice == 2) {
             save_image();
-        } else if (choice == 0) {
+        }
+        else if(choice == 3) {
+            menu();
+        }
+        else if (choice == 0) {
             return;
-        } else {
-            cout << "Invalid choice, please try again\n";
+        }
 
+        else {
+            cout << "Invalid choice, please try again\n";
+            menu2();
+        }
+    }
+
+    void menu() {
+        cout <<
+             "Make your choice :\n"
+             "0-  Exit\n"
+             "1-  Black & White Filter\n"
+             "2-  Invert Filter\n"
+             "3-  Merge Filter \n"
+             "4-  Flip Image\n"
+             "5-  Darken and Lighten Image \n"
+             "6-  Rotate Image\n"
+            /*"7-  Detect Image Edges \n"
+            "8-  Enlarge Image\n"
+            "9-  Shrink Image\n"
+            "10- Mirror 1/2 Image\n"
+            "11- Shuffle Image\n"
+            "12- Blur Image\n"
+            "13- Crop Image\n"
+            "14- Skew Image Right  \n"
+            "15- Skew Image Up  \n"
+
+            "note : only the first six filters work\n"*/;
+        string choice_s;
+        cin >> choice_s;
+        int choice = 0;
+        if (is_digits(choice_s)) {
+            choice = stoi(choice_s);
+        } else {
+            cout << "Invalid filter, please try again\n";
+            menu();
+        }
+        if (choice == 1) {
+            Black_n_white_filter();
+        } else if (choice == 2) {
+            invert_filter();
+
+        } else if (choice == 3) {
+            Merge_Filter();
+        } else if (choice == 4) {
+            flip();
+        } else if (choice == 5) {
+            Darken_and_Lighten_Image();
+        } else if (choice == 6) {
+            Rotate_Image();
+        } else if (choice == 7) {
+
+        } else if (choice == 8) {
+
+        } else if (choice == 9) {
+
+        } else if (choice == 10) {
+
+        } else if (choice == 11) {
+
+        } else if (choice == 12) {
+
+        } else if (choice == 13) {
+
+        } else if (choice == 14) {
+
+        } else if (choice == 15) {
+
+        } else if (choice == 0)
+        {
+            return;
+        }
+        else {
+            cout << "Invalid filter, please try again\n";
+            menu();
         }
         menu2();
     }
-
-        void menu() {
-            cout <<
-                 "Make your choice :\n"
-                 "0-  Exit\n"
-                 "1-  Black & White Filter\n"
-                 "2-  Invert Filter\n"
-                 "3-  Merge Filter \n"
-                 "4-  Flip Image\n"
-                 "5-  Darken and Lighten Image \n"
-                 "6-  Rotate Image\n"
-                 /*"7-  Detect Image Edges \n"
-                 "8-  Enlarge Image\n"
-                 "9-  Shrink Image\n"
-                 "10- Mirror 1/2 Image\n"
-                 "11- Shuffle Image\n"
-                 "12- Blur Image\n"
-                 "13- Crop Image\n"
-                 "14- Skew Image Right  \n"
-                 "15- Skew Image Up  \n"
-
-                 "note : only the first six filters work\n"*/;
-            string choice_s;
-            cin >> choice_s;
-            int choice = 0;
-            if (is_digits(choice_s)) {
-                choice = stoi(choice_s);
-            } else {
-                cout << "Invalid filter, please try again\n";
-                menu();
-            }
-            if (choice == 1) {
-                Black_n_white_filter();
-            } else if (choice == 2) {
-                invert_filter();
-
-            } else if (choice == 3) {
-                Merge_Filter();
-            } else if (choice == 4) {
-                flip();
-            } else if (choice == 5) {
-                Darken_and_Lighten_Image();
-            } else if (choice == 6) {
-                Rotate_Image();
-            } else if (choice == 7) {
-
-            } else if (choice == 8) {
-
-            } else if (choice == 9) {
-
-            } else if (choice == 10) {
-
-            } else if (choice == 11) {
-
-            } else if (choice == 12) {
-
-            } else if (choice == 13) {
-
-            } else if (choice == 14) {
-
-            } else if (choice == 15) {
-
-            } else if (choice == 0)
-            {
-                return;
-            }
-            else {
-                cout << "Invalid filter, please try again\n";
-                menu();
-            }
-            menu2();
-        }
 
 };
 int main() {
