@@ -200,6 +200,70 @@ public:
             for (int j = 0; j < SIZE; j++)
                 imgGS[i][j] = imgGS1[i][j];
     }
+
+    //filter 8 : enlarge image
+    void enlarge_image()
+
+    {
+
+        // first of all choose the quarter you want to enlarge
+        cout << "Choose the number of the required quarter :\n1. quarter one\n2. quarter two\n3. quarter three\n4. quarter four\n";
+        int quarter;
+        cin >> quarter;
+        char mod_imgGS[2 * SIZE][2 * SIZE];
+
+        //enlarging image dimensions to double
+        for (int i = 0; i < 2 * SIZE; i++)
+        {
+            for (int j = 0; j < 2 * SIZE; j++)
+            {
+                mod_imgGS[i][j] = imgGS[i / 2][j / 2];
+            }
+        }
+
+        // detecting the quarter based on the input
+        if (quarter == 1)
+        {
+            for (int i = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    imgGS[i][j] = mod_imgGS[i][j];
+                }
+            }
+        }
+        else if (quarter == 2)
+        {
+            for (int i = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    imgGS[i][j] = mod_imgGS[i][255 + j];
+                }
+            }
+        }
+        else if (quarter == 3)
+        {
+            for (int i = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    imgGS[i][j] = mod_imgGS[255 + i][j];
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    imgGS[i][j] = mod_imgGS[255 + i][255 + j];
+                }
+            }
+        }
+    }
+
     void menu2() {
         cout << "Make your choice :\n"
                 "0-  Exit\n"
@@ -230,8 +294,9 @@ public:
 
         else {
             cout << "Invalid choice, please try again\n";
-            menu2();
+
         }
+        menu2();
     }
 
     void menu() {
@@ -244,17 +309,17 @@ public:
              "4-  Flip Image\n"
              "5-  Darken and Lighten Image \n"
              "6-  Rotate Image\n"
-            /*"7-  Detect Image Edges \n"
-            "8-  Enlarge Image\n"
-            "9-  Shrink Image\n"
-            "10- Mirror 1/2 Image\n"
-            "11- Shuffle Image\n"
-            "12- Blur Image\n"
-            "13- Crop Image\n"
-            "14- Skew Image Right  \n"
-            "15- Skew Image Up  \n"
+             "7-  Detect Image Edges \n"
+             "8-  Enlarge Image\n"
+             "9-  Shrink Image\n"
+             "10- Mirror 1/2 Image\n"
+             "11- Shuffle Image\n"
+             "12- Blur Image\n"
+             "13- Crop Image\n"
+             "14- Skew Image Right  \n"
+             "15- Skew Image Up  \n"
 
-            "note : only the first six filters work\n"*/;
+            "note : only the first six filters work\n";
         string choice_s;
         cin >> choice_s;
         int choice = 0;
@@ -280,7 +345,7 @@ public:
         } else if (choice == 7) {
 
         } else if (choice == 8) {
-
+            enlarge_image();
         } else if (choice == 9) {
 
         } else if (choice == 10) {
