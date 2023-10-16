@@ -264,6 +264,108 @@ public:
         }
     }
 
+    //filter b : shuffle image
+    void shuffle_image()
+    {
+
+        // create four arrays
+        char quarter1[128][128], quarter2[128][128], quarter3[128][128], quarter4[128][128];
+
+        // save the quarters of the original photo in these four arrays
+        for (int i = 0; i < 128; i++)
+        {
+            for (int j = 0; j < 128; j++)
+                quarter1[i][j] = imgGS[i][j];
+        }
+        for (int i = 0; i < 128; i++)
+        {
+            for (int j = 0; j < 128; j++)
+                quarter2[i][j] = imgGS[i][127 + j];
+        }
+        for (int i = 0; i < 128; i++)
+        {
+            for (int j = 0; j < 128; j++)
+                quarter3[i][j] = imgGS[127 + i][j];
+        }for (int i = 0; i < 128; i++)
+        {
+            for (int j = 0; j < 128; j++)
+                quarter4[i][j] = imgGS[127 + i][127 + j];
+        }
+
+        // ask the user to enter the new order
+        cout << "Enter the order of the quarters :\n";
+        int a[4];
+        for (int i = 0; i < 4; i++)
+            cin >> a[i];
+
+        // order the arrays in the original photo as the user wants :
+
+        //quarter one in the original photo
+        for (int i = 0; i < 128; i++)
+        {
+            for (int j = 0; j < 128; j++)
+            {
+                if (a[0] == 1)
+                    imgGS[i][j] = quarter1[i][j];
+                if (a[0] == 2)
+                    imgGS[i][j] = quarter2[i][j];
+                if (a[0] == 3)
+                    imgGS[i][j] = quarter3[i][j];
+                if (a[0] == 4)
+                    imgGS[i][j] = quarter4[i][j];
+            }
+        }
+
+        //quarter two in the original photo
+        for (int i = 0; i < 128; i++)
+        {
+            for (int j = 0; j < 128; j++)
+            {
+                if (a[1] == 1)
+                    imgGS[i][128 + j] = quarter1[i][j];
+                else if (a[1] == 2)
+                    imgGS[i][128 + j] = quarter2[i][j];
+                else if (a[1] == 3)
+                    imgGS[i][128 + j] = quarter3[i][j];
+                else
+                    imgGS[i][128 + j] = quarter4[i][j];
+            }
+        }
+
+        //quarter three in the original photo
+        for (int i = 0; i < 128; i++)
+        {
+            for (int j = 0; j < 128; j++)
+            {
+                if (a[2] == 1)
+                    imgGS[128 + i][j] = quarter1[i][j];
+                else if (a[2] == 2)
+                    imgGS[128 + i][j] = quarter2[i][j];
+                else if (a[2] == 3)
+                    imgGS[128 + i][j] = quarter3[i][j];
+                else
+                    imgGS[128 + i][j] = quarter4[i][j];
+            }
+        }
+
+        // //quarter four in the original photo
+        for (int i = 0; i < 128; i++)
+        {
+            for (int j = 0; j < 128; j++)
+            {
+                if (a[3] == 1)
+                    imgGS[128 + i][128 + j] = quarter1[i][j];
+                else if (a[3] == 2)
+                    imgGS[128 + i][128 + j] = quarter2[i][j];
+                else if (a[3] == 3)
+                    imgGS[128 + i][128 + j] = quarter3[i][j];
+                else
+                    imgGS[128 + i][128 + j] = quarter4[i][j];
+            }
+        }
+
+    }
+
     void menu2() {
         cout << "Make your choice :\n"
                 "0-  Exit\n"
@@ -317,9 +419,7 @@ public:
              "12- Blur Image\n"
              "13- Crop Image\n"
              "14- Skew Image Right  \n"
-             "15- Skew Image Up  \n"
-
-            "note : only the first six filters work\n";
+             "15- Skew Image Up  \n";
         string choice_s;
         cin >> choice_s;
         int choice = 0;
@@ -351,7 +451,7 @@ public:
         } else if (choice == 10) {
 
         } else if (choice == 11) {
-
+            shuffle_image();
         } else if (choice == 12) {
 
         } else if (choice == 13) {
