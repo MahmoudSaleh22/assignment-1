@@ -264,6 +264,71 @@ public:
         }
     }
 
+    // filter 9 : Shrink Image
+    void shrink_image ()
+    {
+        // enter the size
+        cout << "Shrink\n1) 1/2\n2) 1/3\n3) 1/4\n";
+        int s;
+        cin >> s;
+        char mod_img[256][256] = {0};
+
+        if (s == 1)
+        {
+            // Merging every 4 pixels in one pixel
+            for (int i = 0; i < 128; i++)
+            {
+                for (int j = 0; j < 128; j++)
+                {
+                    mod_img[i][j] = (imgGS[2 * i][2 * j] + imgGS[2 * i + 1][2 * j + 1]
+                                    +  imgGS[2 * i + 1][2 * j] + imgGS[2 * i][2 * j + 1]) / 4;
+                }
+            }
+
+        }
+        else if (s == 2)
+        {
+            // Merging every 9 pixels in 1 pixel
+            for (int i = 0; i < 85; i++)
+            {
+                for (int j = 0; j < 85; j++)
+                {
+                    mod_img[i][j] = (imgGS[3 * i][3 * j] + imgGS[3 * i][3 * j + 1]
+                                    +  imgGS[3 * i][3 * j + 2] + imgGS[3 * i + 1][3 * j]
+                                    +  imgGS[3 * i + 1][3 * j + 1] + imgGS[3 * i + 1][3 * j + 2]
+                                    +  imgGS[3 * i + 2][3 * j] + imgGS[3 * i + 2][3 * j + 1]
+                                    +  imgGS[3 * i + 2][3 * j + 2]) / 9;
+                }
+            }
+        }
+
+        else
+        {
+            // Merging every 15 pixels in 1 pixel
+            for (int i = 0; i < 64; i++)
+            {
+                for (int j = 0; j < 64; j++)
+                {
+
+                    mod_img[i][j] = (imgGS[4 * i][4 * j] + imgGS[4 * i][4 * j + 1]
+                                    +  imgGS[4 * i][4 * j + 2] + imgGS[4 * i][4 * j + 3]
+                                    +  imgGS[4 * i + 1][4 * j] + imgGS[4 * i + 3][4 * j + 1]
+                                    +  imgGS[4 * i + 1][4 * j + 2] +  imgGS[4 * i + 1][4 * j + 3]
+                                    +  imgGS[4 * i + 2][4 * j] +  imgGS[4 * i + 2][4 * j + 1]
+                                    +  imgGS[4 * i + 2][4 * j + 2] +  imgGS[4 * i + 2][4 * j + 3]
+                                    +  imgGS[4 * i + 3][4 * j] +  imgGS[4 * i + 3][4 * j + 1]
+                                    +  imgGS[4 * i + 3][4 * j + 2] +  imgGS[4 * i + 3][4 * j + 3]) / 16;
+                }
+            }
+        }
+        for (int i = 0; i  < 256; i++)
+        {
+            for (int j = 0; j < 256; j++)
+                imgGS[i][j] = mod_img[i][j];
+        }
+
+    }
+
     //filter b : shuffle image
     void shuffle_image()
     {
@@ -348,7 +413,7 @@ public:
             }
         }
 
-        // //quarter four in the original photo
+        //quarter four in the original photo
         for (int i = 0; i < 128; i++)
         {
             for (int j = 0; j < 128; j++)
@@ -364,6 +429,86 @@ public:
             }
         }
 
+    }
+    // filter c : blur image
+    void blur_image ()
+    {
+        char mod_img[256][256] = {0};
+        int s, cnt;
+
+        //calculate the average of every 25 pixels with the currant pixel
+        for (int i = 0; i < 256; i++)
+        {
+            for (int j = 0; j < 256; j++)
+            {
+                s = cnt = 0;
+                for (int x = i - 2; x <= i + 2; x++)
+                {
+                    for (int y = j - 2; y <= j + 2; y++)
+                    {
+                        s += imgGS[x][y];
+                        if (imgGS[x][y] > 0)
+                            cnt++;
+                    }
+                }
+                mod_img[i][j] = s / cnt;
+            }
+        }
+
+        for (int i = 0; i < 256; i++)
+        {
+            for (int j = 0; j < 256; j++)
+                imgGS[i][j] = mod_img[i][j];
+        }
+    }
+
+    //filter e : skew image right
+    void skew_image_right ()
+    {
+        char mod_img[256][256] = {0};
+
+        // shift variable is created to get the right indices
+        int shift = 128;
+        for (int i = 0; i < 256; i++)
+        {
+            //  shift variable is decremented every 2 rounds on the columns
+            if (i % 2 != 0)
+                shift--;
+
+
+            // The index i, j + shift is meant to get the precise index of the skewed image
+            // Each pixel is colored as the average of the 2 pixels compressed to half the size
+            for (int j = 0; j < 128; j++)
+                mod_img[i][j + shift] = (imgGS[i][j * 2] + imgGS[i][j * 2 + 1]) / 2;
+
+        }
+        for (int i = 0; i < 256; i++)
+            for (int j = 0; j < 256; j++)
+                imgGS[i][j] = mod_img[i][j];
+    }
+
+    //filter f : skew image up
+    void skew_image_up ()
+    {
+        char mod_img[256][256] = {0};
+
+        // shift variable is created to get the right indices
+        int shift = 128;
+        for (int j = 0; j < 256; j++)
+        {
+            //  shift variable is decremented every 2 rounds on the columns
+            if (j % 2 != 0)
+                shift--;
+
+            // The index i + shift, j is meant to get the precise index of the skewed image
+            // Each pixel is colored as the average of the 2 pixels compressed to half the size
+            for (int i = 0; i < 128; i++)
+                mod_img[i + shift][j] = (imgGS[i * 2][j] + imgGS[i * 2 + 1][j]) / 2;
+
+        }
+        for (int i = 0; i < 256; i++)
+            for (int j = 0; j < 256; j++)
+                imgGS[i][j] = mod_img[i][j];
     }
 
     void menu2() {
@@ -447,19 +592,19 @@ public:
         } else if (choice == 8) {
             enlarge_image();
         } else if (choice == 9) {
-
+            shrink_image();
         } else if (choice == 10) {
 
         } else if (choice == 11) {
             shuffle_image();
         } else if (choice == 12) {
-
+            blur_image ();
         } else if (choice == 13) {
 
         } else if (choice == 14) {
-
+            skew_image_right ();
         } else if (choice == 15) {
-
+            skew_image_up ();
         } else if (choice == 0)
         {
             return;
