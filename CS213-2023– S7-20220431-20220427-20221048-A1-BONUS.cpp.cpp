@@ -114,6 +114,26 @@ public:
     // filter 3 : Merge Filter
     void Merge_Filter()
     {
+        char imageFileName[100];
+
+        // Get gray scale image file name
+        cout << "Enter the second source image file name: ";
+        cin >> imageFileName;
+
+        // Add to it .bmp extension and load image
+        strcat (imageFileName, ".bmp");
+        readRGBBMP(imageFileName, image2);
+
+        // Merging two photos requires
+        // every pixel to be the average of
+        // the 2 pixels from each photo
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j< SIZE; j++) {
+                image[i][j][0] = (image[i][j][0] + image2[i][j][0]) /2;
+                image[i][j][1] = (image[i][j][1] + image2[i][j][1]) /2;
+                image[i][j][2] = (image[i][j][2] + image2[i][j][2]) /2;
+            }
+        }
     }
 
     // filter 4 : flip image filter
@@ -225,6 +245,60 @@ public:
     // filter 6 : rotate image
     void Rotate_Image()
     {
+        unsigned char mode_image[SIZE][SIZE][3];
+        // get angel
+        cout << "choose angle :\n(.90\t.180\t.270)\n";
+        int x;
+        cin >> x;
+
+        //rotate by 90
+        if (x == 90)
+        {
+            for (int i  = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                    {
+                        mode_image[j][255 - i][0] = image[i][j][0];
+                        mode_image[j][255 - i][1] = image[i][j][1];
+                        mode_image[j][255 - i][2] = image[i][j][2];
+                    }
+            }
+        
+        }
+        else if (x == 180)
+        {
+            for (int i  = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    mode_image[255 - i][255 - j][0] = image[i][j][0];
+                    mode_image[255 - i][255 - j][1] = image[i][j][1];
+                    mode_image[255 - i][255 - j][2] = image[i][j][2];
+                }
+                    
+            }
+        }
+        else
+        {
+            for (int i  = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    mode_image[255 - j][i][0] = image[i][j][0];
+                    mode_image[255 - j][i][1] = image[i][j][1];
+                    mode_image[255 - j][i][2] = image[i][j][2];
+                }
+                    
+            }
+        }
+        for (int i = 0; i < SIZE; i++)
+            for (int j = 0; j < SIZE; j++)
+            {
+                image[i][j][0] = mode_image[i][j][0];
+                image[i][j][1] = mode_image[i][j][1];
+                image[i][j][2] = mode_image[i][j][2];
+            }
+
     }
 
     // filter 7 : detect edges
@@ -408,6 +482,101 @@ void detect_edges_RGB(){
     // filter 9 : Shrink Image
     void shrink_image ()
     {
+        // enter the size
+        cout << "Shrink\n1) 1/2\n2) 1/3\n3) 1/4\n";
+        int s;
+        cin >> s;
+        char mod_image[256][256][3] = {0};
+
+        if (s == 1)
+        {
+            // Merging every 4 pixels in one pixel
+            for (int i = 0; i < 128; i++)
+            {
+                for (int j = 0; j < 128; j++)
+                {
+                    mod_image[i][j][0] = (image[2 * i][2 * j][0] + image[2 * i + 1][2 * j + 1][0]
+                                     +  image[2 * i + 1][2 * j][0] + image[2 * i][2 * j + 1][0]) / 4;
+                    mod_image[i][j][1] = (image[2 * i][2 * j][1] + image[2 * i + 1][2 * j + 1][1]
+                                     +  image[2 * i + 1][2 * j][1] + image[2 * i][2 * j + 1][1]) / 4;
+                    mod_image[i][j][2] = (image[2 * i][2 * j][2] + image[2 * i + 1][2 * j + 1][2]
+                                     +  image[2 * i + 1][2 * j][2] + image[2 * i][2 * j + 1][2]) / 4;
+                }
+            }
+        }
+
+        else if (s == 2)
+        {
+            // Merging every 9 pixels in 1 pixel
+            for (int i = 0; i < 85; i++)
+            {
+                for (int j = 0; j < 85; j++)
+                {
+                    mod_image[i][j][0] = (image[3 * i][3 * j][0] + image[3 * i][3 * j + 1][0]
+                                     +  image[3 * i][3 * j + 2][0] + image[3 * i + 1][3 * j][0]
+                                     +  image[3 * i + 1][3 * j + 1][0] + image[3 * i + 1][3 * j + 2][0]
+                                     +  image[3 * i + 2][3 * j][0] + image[3 * i + 2][3 * j + 1][0]
+                                     +  image[3 * i + 2][3 * j + 2][0]) / 9;
+                    mod_image[i][j][1] = (image[3 * i][3 * j][1] + image[3 * i][3 * j + 1][1]
+                                     +  image[3 * i][3 * j + 2][1] + image[3 * i + 1][3 * j][1]
+                                     +  image[3 * i + 1][3 * j + 1][1] + image[3 * i + 1][3 * j + 2][1]
+                                     +  image[3 * i + 2][3 * j][1] + image[3 * i + 2][3 * j + 1][1]
+                                     +  image[3 * i + 2][3 * j + 2][1]) / 9;
+                    mod_image[i][j][2] = (image[3 * i][3 * j][2] + image[3 * i][3 * j + 1][2]
+                                     +  image[3 * i][3 * j + 2][2] + image[3 * i + 1][3 * j][2]
+                                     +  image[3 * i + 1][3 * j + 1][2] + image[3 * i + 1][3 * j + 2][2]
+                                     +  image[3 * i + 2][3 * j][2] + image[3 * i + 2][3 * j + 1][2]
+                                     +  image[3 * i + 2][3 * j + 2][2]) / 9;
+                }
+            }
+        }
+        else
+        {
+            // Merging every 15 pixels in 1 pixel
+            for (int i = 0; i < 64; i++)
+            {
+                for (int j = 0; j < 64; j++)
+                {
+
+                    mod_image[i][j][0] = (image[4 * i][4 * j][0] + image[4 * i][4 * j + 1][0]
+                                     +  image[4 * i][4 * j + 2][0] + image[4 * i][4 * j + 3][0]
+                                     +  image[4 * i + 1][4 * j][0] + image[4 * i + 3][4 * j + 1][0]
+                                     +  image[4 * i + 1][4 * j + 2][0] +  image[4 * i + 1][4 * j + 3][0]
+                                     +  image[4 * i + 2][4 * j][0] +  image[4 * i + 2][4 * j + 1][0]
+                                     +  image[4 * i + 2][4 * j + 2][0] +  image[4 * i + 2][4 * j + 3][0]
+                                     +  image[4 * i + 3][4 * j][0] +  image[4 * i + 3][4 * j + 1][0]
+                                     +  image[4 * i + 3][4 * j + 2][0] +  image[4 * i + 3][4 * j + 3][0]) / 16;
+
+                    mod_image[i][j][1] = (image[4 * i][4 * j][1] + image[4 * i][4 * j + 1][1]
+                                     +  image[4 * i][4 * j + 2][1] + image[4 * i][4 * j + 3][1]
+                                     +  image[4 * i + 1][4 * j][1] + image[4 * i + 3][4 * j + 1][1]
+                                     +  image[4 * i + 1][4 * j + 2][1] +  image[4 * i + 1][4 * j + 3][1]
+                                     +  image[4 * i + 2][4 * j][1] +  image[4 * i + 2][4 * j + 1][1]
+                                     +  image[4 * i + 2][4 * j + 2][1] +  image[4 * i + 2][4 * j + 3][1]
+                                     +  image[4 * i + 3][4 * j][1] +  image[4 * i + 3][4 * j + 1][0]
+                                     +  image[4 * i + 3][4 * j + 2][1] +  image[4 * i + 3][4 * j + 3][1]) / 16;
+
+                    mod_image[i][j][2] = (image[4 * i][4 * j][2] + image[4 * i][4 * j + 1][2]
+                                     +  image[4 * i][4 * j + 2][2] + image[4 * i][4 * j + 3][2]
+                                     +  image[4 * i + 1][4 * j][2] + image[4 * i + 3][4 * j + 1][2]
+                                     +  image[4 * i + 1][4 * j + 2][2] +  image[4 * i + 1][4 * j + 3][2]
+                                     +  image[4 * i + 2][4 * j][2] +  image[4 * i + 2][4 * j + 1][2]
+                                     +  image[4 * i + 2][4 * j + 2][2] +  image[4 * i + 2][4 * j + 3][2]
+                                     +  image[4 * i + 3][4 * j][2] +  image[4 * i + 3][4 * j + 1][2]
+                                     +  image[4 * i + 3][4 * j + 2][2] +  image[4 * i + 3][4 * j + 3][2]) / 16;
+                }
+            }
+        }
+        for (int i = 0; i  < 256; i++)
+        {
+            for (int j = 0; j < 256; j++)
+            {
+                image[i][j][0] = mod_image[i][j][0];
+                image[i][j][1] = mod_image[i][j][1];
+                image[i][j][2] = mod_image[i][j][2];
+            }
+                
+        }
     }
 
     // filter a : mirror half
@@ -654,6 +823,47 @@ void detect_edges_RGB(){
     // filter c : blur image
     void blur_image ()
     {
+        char mod_image[256][256][3] = {0};
+        int s1, s2, s3, cnt;
+        //calculate the average of every 25 pixels with the currant pixel
+        for (int i = 0; i < 256; i++)
+        {
+            for (int j = 0; j < 256; j++)
+            {
+                s1 = s2 = s3 = cnt = 0;
+                for (int x = i - 2; x <= i + 2; x++)
+                {
+                    for (int y = j - 2; y <= j + 2; y++)
+                    {
+                        
+                        //if (image[x][y][0] > 0)
+                            
+                        if (x >= 0 && y <= 255)
+                        {
+                            s1 += image[x][y][0];
+                            s2 += image[x][y][1];
+                            s3 += image[x][y][2];
+                            cnt++;
+                        }
+                        
+                        
+                    }
+                }
+                mod_image[i][j][0] = s1 / cnt;
+                mod_image[i][j][1] = s2 / cnt;
+                mod_image[i][j][2] = s3 / cnt;
+            }
+        }
+        for (int i = 0; i < 256; i++)
+        {
+            for (int j = 0; j < 256; j++)
+            {
+                image[i][j][0] = mod_image[i][j][0];
+                image[i][j][1] = mod_image[i][j][1];
+                image[i][j][2] = mod_image[i][j][2];
+            }
+                
+        }
     }
 
     // filter d : crop image
@@ -699,7 +909,6 @@ void detect_edges_RGB(){
     }
 
     //filter e : skew image right
-    //filter e : skew image right
     void skew_image_right ()
     {
         unsigned char mod_img[256][256][3] = {0};
@@ -735,6 +944,36 @@ void detect_edges_RGB(){
     //filter f : skew image up
     void skew_image_up ()
     {
+        char mod_image[256][256][3] = {0};
+        
+        // shift variable is created to get the right indices
+        int shift = 128;
+        for (int j = 0; j < 256; j++)
+        {
+            //  shift variable is decremented every 2 rounds on the columns
+            if (j % 2 != 0)
+                shift--;
+
+
+            // The index i + shift, j is meant to get the precise index of the skewed image
+            // Each pixel is colored as the average of the 2 pixels compressed to half the size
+            for (int i = 0; i < 128; i++)
+            {
+                mod_image[i + shift][j][0] = (image[i * 2][j][0] + image[i * 2 + 1][j][0]) / 2;
+                mod_image[i + shift][j][1] = (image[i * 2][j][1] + image[i * 2 + 1][j][1]) / 2;
+                mod_image[i + shift][j][2] = (image[i * 2][j][2] + image[i * 2 + 1][j][2]) / 2;
+            }
+
+        }
+        for (int i = 0; i < 256; i++)
+            for (int j = 0; j < 256; j++)
+            {
+                image[i][j][0] = mod_image[i][j][0];
+                image[i][j][1] = mod_image[i][j][1];
+                image[i][j][2] = mod_image[i][j][2];
+            }
+
+
     }
     void menu2() {
         cout << "Make your choice :\n"
