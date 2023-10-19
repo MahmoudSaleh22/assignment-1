@@ -1,11 +1,21 @@
+//ASSIGNMENT_1_NAMES_IDS_EMAILS_H
+
+// Mohammed Ahmed Hemdan Mohammed            20220427           mohammedahmed98731@gmail.com
+
+
+// Mahmoud Saleh Saad tookhey                20220431           mahmoud22saleh22@gmail.com
+
+
+// Hosny Mohammed Hosny Metwally             20221048           hosnymohammed17@gmail.com
+
 #include <iostream>
 #include "bmplib.cpp"
 #include "bmplib.h"
 #include <unistd.h>
 #include <cmath>
 #include <cstring>
-using namespace std; // Mahmoud Saleh - Mohammed Hemdan - Hosny Mohammed
-class photo_editor{ 
+using namespace std;
+class photo_editor{
 private:
     unsigned char imgGS[SIZE][SIZE];
     unsigned char imgGS2[SIZE][SIZE];
@@ -597,25 +607,25 @@ public:
         int x,y;cin>>x>>y;
         cout << "please enter l and w seperated by space:";
         int l,w;cin>>l>>w;
-        // making the area between 0 and x white
+        // making the area between 0 and x to white
         for (int i = 0; i <SIZE ; ++i) {
             for (int j = 0; j <x ; ++j) {
                 imgGS[i][j] = 255;
             }
         }
-        // making the area between x+width and the end of the image white
+        // making the area between x+width and the end of the image to white
         for (int i = 0; i <SIZE ; ++i) {
             for (int j = x+w; j <SIZE ; ++j) {
                 imgGS[i][j] = 255;
             }
         }
-        // making the area between 0 and y white
+        // making the area between 0 and y to white
         for (int i = 0; i <y ; ++i) {
             for (int j = 0; j <SIZE ; ++j) {
                 imgGS[i][j] = 255;
             }
         }
-        // making the area between y+length and the end of the image white
+        // making the area between y+length and the end of the image to white
         for (int i = y+l; i <SIZE ; ++i) {
             for (int j = 0; j <SIZE ; ++j) {
                 imgGS[i][j] = 255;
