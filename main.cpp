@@ -1,6 +1,7 @@
 #include <iostream>
 #include "bmplib.h"
 #include <unistd.h>
+#include <cmath>
 using namespace std;
 class photo_editor{
 private:
@@ -40,7 +41,6 @@ public:
         }
         return true;
     }
-    // filter 1 : black and white filter
     void Black_n_white_filter(){
         for(int i = 0 ; i < SIZE ; i++){
             for(int j = 0 ; j < SIZE ; j++){
@@ -164,7 +164,7 @@ public:
         }
     }
 
-    // filter 6
+    // filter 6 : rotate image
     void Rotate_Image()
     {
         unsigned char imgGS1[SIZE][SIZE];
@@ -199,6 +199,84 @@ public:
         for (int i = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE; j++)
                 imgGS[i][j] = imgGS1[i][j];
+    }
+
+    // filter 7 : detect edges
+    void detect_edges(){
+        /*
+         * i have followed in this filter a well known algorithm called
+         * sobel edge detection algorithm
+         * i have read about it in this article
+         * https://homepages.inf.ed.ac.uk/rbf/HIPR2/sobel.htm
+         */
+        // this is called convolution kernel and we need 2
+        // one for columns and the other for rows
+        int column_mask[3][3] = {{-1,0,1},{-2,0,2},{-1,0,1}};
+        int row_mask[3][3] = {{1,2,1},{0,0,0},{-1,-2,-1}};
+        // this is called Pseudo-convolution kernels and it is used
+        // to compute the gradient
+        int ix[254][254]={0};
+        int iy[254][254]={0};
+        // first we here compute the horizontal gradient for the photo
+        for (int i = 0; i <254 ; ++i) {
+            for (int j = 0; j <254 ; ++j) {
+                int pixel = 0;
+                for (int k = 0; k <3 ; ++k) {
+                    for (int l = 0; l <3 ; ++l) {
+                        pixel += (imgGS[i+k][j+l] * row_mask[k][l]);
+                    }
+                }
+                ix[i][j] = pixel;
+            }
+        }
+        // second we here compute the vertical gradient for the photo
+        for (int i = 0; i <254 ; ++i) {
+            for (int j = 0; j <254 ; ++j) {
+                int pixel = 0;
+                for (int k = 0; k <3 ; ++k) {
+                    for (int l = 0; l <3 ; ++l) {
+                        pixel += (imgGS[i+k][j+l] * column_mask[k][l]);
+                    }
+                }
+                iy[i][j] = pixel;
+            }
+        }
+        int res[254][254]={0};
+        int threshold = 0;
+        // here we find the magnitude for every pixel
+        // using the formula sqrt(ix^2 + iy^2)
+        for (int i = 0; i <254 ; ++i) {
+            for (int j = 0; j <254 ; ++j) {
+                double temp = 0;
+                temp = sqrt(double(ix[i][j]*ix[i][j]) + double(iy[i][j]*iy[i][j]));
+                res[i][j] = round(temp);
+                threshold += res[i][j];
+            }
+        }
+        // here we get the threshold which is the value
+        // we will use to find if the pixel is edge or no
+        threshold = round(double(threshold)/double(64516));
+        for (int i = 0; i <254 ; ++i) {
+            for (int j = 0; j <254 ; ++j) {
+                // if the value is less than the threshold
+                // we make it white (not an edge);
+                if(res[i][j] <= threshold){
+                    res[i][j] = 255;
+                }
+                else{
+                    // else we make it black
+                    // And it's considered as an edge
+                    res[i][j] = 0;
+                }
+            }
+        }
+        // getting back the values into our main array
+        // to use the saveImage() function
+        for (int i = 0; i < 254; ++i) {
+            for (int j = 0; j < 254; ++j) {
+                imgGS[i][j] = res[i][j];
+            }
+        }
     }
 
     //filter 8 : enlarge image
@@ -281,7 +359,7 @@ public:
                 for (int j = 0; j < 128; j++)
                 {
                     mod_img[i][j] = (imgGS[2 * i][2 * j] + imgGS[2 * i + 1][2 * j + 1]
-                                    +  imgGS[2 * i + 1][2 * j] + imgGS[2 * i][2 * j + 1]) / 4;
+                                     +  imgGS[2 * i + 1][2 * j] + imgGS[2 * i][2 * j + 1]) / 4;
                 }
             }
 
@@ -294,10 +372,10 @@ public:
                 for (int j = 0; j < 85; j++)
                 {
                     mod_img[i][j] = (imgGS[3 * i][3 * j] + imgGS[3 * i][3 * j + 1]
-                                    +  imgGS[3 * i][3 * j + 2] + imgGS[3 * i + 1][3 * j]
-                                    +  imgGS[3 * i + 1][3 * j + 1] + imgGS[3 * i + 1][3 * j + 2]
-                                    +  imgGS[3 * i + 2][3 * j] + imgGS[3 * i + 2][3 * j + 1]
-                                    +  imgGS[3 * i + 2][3 * j + 2]) / 9;
+                                     +  imgGS[3 * i][3 * j + 2] + imgGS[3 * i + 1][3 * j]
+                                     +  imgGS[3 * i + 1][3 * j + 1] + imgGS[3 * i + 1][3 * j + 2]
+                                     +  imgGS[3 * i + 2][3 * j] + imgGS[3 * i + 2][3 * j + 1]
+                                     +  imgGS[3 * i + 2][3 * j + 2]) / 9;
                 }
             }
         }
@@ -311,13 +389,13 @@ public:
                 {
 
                     mod_img[i][j] = (imgGS[4 * i][4 * j] + imgGS[4 * i][4 * j + 1]
-                                    +  imgGS[4 * i][4 * j + 2] + imgGS[4 * i][4 * j + 3]
-                                    +  imgGS[4 * i + 1][4 * j] + imgGS[4 * i + 3][4 * j + 1]
-                                    +  imgGS[4 * i + 1][4 * j + 2] +  imgGS[4 * i + 1][4 * j + 3]
-                                    +  imgGS[4 * i + 2][4 * j] +  imgGS[4 * i + 2][4 * j + 1]
-                                    +  imgGS[4 * i + 2][4 * j + 2] +  imgGS[4 * i + 2][4 * j + 3]
-                                    +  imgGS[4 * i + 3][4 * j] +  imgGS[4 * i + 3][4 * j + 1]
-                                    +  imgGS[4 * i + 3][4 * j + 2] +  imgGS[4 * i + 3][4 * j + 3]) / 16;
+                                     +  imgGS[4 * i][4 * j + 2] + imgGS[4 * i][4 * j + 3]
+                                     +  imgGS[4 * i + 1][4 * j] + imgGS[4 * i + 3][4 * j + 1]
+                                     +  imgGS[4 * i + 1][4 * j + 2] +  imgGS[4 * i + 1][4 * j + 3]
+                                     +  imgGS[4 * i + 2][4 * j] +  imgGS[4 * i + 2][4 * j + 1]
+                                     +  imgGS[4 * i + 2][4 * j + 2] +  imgGS[4 * i + 2][4 * j + 3]
+                                     +  imgGS[4 * i + 3][4 * j] +  imgGS[4 * i + 3][4 * j + 1]
+                                     +  imgGS[4 * i + 3][4 * j + 2] +  imgGS[4 * i + 3][4 * j + 3]) / 16;
                 }
             }
         }
@@ -328,6 +406,58 @@ public:
         }
 
     }
+
+    // filter a : mirror half
+    void mirror_half(){
+        cout << "1- upper half\n"
+                "2- lower half\n"
+                "3- right half\n"
+                "4- left half\n"
+                "Enter the half that you want to mirror:";
+        int target_half;cin>>target_half;
+        if(target_half == 1){
+            // copying each pixel into the opposite pixel
+            // in the lower half which makes the upper mirror effect
+            for (int i = 0; i <SIZE/2; ++i) {
+                for (int j = 0; j < SIZE ; ++j) {
+                    imgGS[SIZE-i][j] = imgGS[i][j];
+                }
+            }
+        }
+        else if(target_half == 2){
+            // copying each pixel into the opposite pixel
+            // in the upper half which makes the lower mirror effect
+            for (int i = 0; i <SIZE/2; ++i) {
+                for (int j = 0; j < SIZE ; ++j) {
+                    imgGS[i][j] = imgGS[SIZE-i][j];
+                }
+            }
+        }
+        else if(target_half == 3){
+            // copying each pixel into the opposite pixel
+            // in the left half which makes the right mirror effect
+            for (int i = 0; i <SIZE; ++i) {
+                for (int j = 0; j < SIZE/2 ; ++j) {
+                    imgGS[i][j] = imgGS[i][SIZE-j];
+                }
+            }
+        }
+        else if(target_half == 4){
+            // copying each pixel into the opposite pixel
+            // in the right half which makes the left mirror effect
+            for (int i = 0; i <SIZE; ++i) {
+                for (int j = 0; j < SIZE/2 ; ++j) {
+                    imgGS[i][SIZE-j] = imgGS[i][j];
+                }
+            }
+        }
+        else
+        {
+            cout << "Wrong choice, please try again";
+            mirror_half();
+        }
+    }
+
 
     //filter b : shuffle image
     void shuffle_image()
@@ -462,6 +592,40 @@ public:
         }
     }
 
+    // filter d : crop image
+    void crop_image(){
+        cout << "Please enter x and y seperated by space:";
+        int x,y;cin>>x>>y;
+        cout << "please enter l and w seperated by space:";
+        int l,w;cin>>l>>w;
+        // making the area between 0 and x white
+        for (int i = 0; i <SIZE ; ++i) {
+            for (int j = 0; j <x ; ++j) {
+                imgGS[i][j] = 255;
+            }
+        }
+        // making the area between x+width and the end of the image white
+        for (int i = 0; i <SIZE ; ++i) {
+            for (int j = x+w; j <SIZE ; ++j) {
+                imgGS[i][j] = 255;
+            }
+        }
+        // making the area between 0 and y white
+        for (int i = 0; i <y ; ++i) {
+            for (int j = 0; j <SIZE ; ++j) {
+                imgGS[i][j] = 255;
+            }
+        }
+        // making the area between y+length and the end of the image white
+        for (int i = y+l; i <SIZE ; ++i) {
+            for (int j = 0; j <SIZE ; ++j) {
+                imgGS[i][j] = 255;
+            }
+        }
+        // eventually its result the area we want to stay the same
+        // while the rest of the image become white
+    }
+
     //filter e : skew image right
     void skew_image_right ()
     {
@@ -510,7 +674,6 @@ public:
             for (int j = 0; j < 256; j++)
                 imgGS[i][j] = mod_img[i][j];
     }
-
     void menu2() {
         cout << "Make your choice :\n"
                 "0-  Exit\n"
@@ -588,19 +751,19 @@ public:
         } else if (choice == 6) {
             Rotate_Image();
         } else if (choice == 7) {
-
+            detect_edges();
         } else if (choice == 8) {
             enlarge_image();
         } else if (choice == 9) {
             shrink_image();
         } else if (choice == 10) {
-
+            mirror_half();
         } else if (choice == 11) {
             shuffle_image();
         } else if (choice == 12) {
             blur_image ();
         } else if (choice == 13) {
-
+            crop_image();
         } else if (choice == 14) {
             skew_image_right ();
         } else if (choice == 15) {
