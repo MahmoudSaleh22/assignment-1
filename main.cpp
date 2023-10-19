@@ -1,37 +1,37 @@
 #include <iostream>
+#include "bmplib.cpp"
 #include "bmplib.h"
 #include <unistd.h>
 #include <cmath>
+#include <cstring>
 using namespace std;
 class photo_editor{
 private:
     unsigned char imgGS[SIZE][SIZE];
     unsigned char imgGS2[SIZE][SIZE];
 public:
-    void load_image(){
-        string image_name,path = "\\imgs\\";
-        cout << "Please enter the name of the image to process (NOTE: Must be in imgs folder, without bmp):";
-        cin >> image_name;
-        path += image_name;
-        path += ".bmp";
-        char cwd[PATH_MAX];
-        readGSBMP(strcat(getcwd(cwd,sizeof(cwd)),path.c_str()),imgGS);
-    }
-    void show_image(){
-        showGSBMP(imgGS);
-    }
-    void save_image () {
-        // the image will be saved at cmake files in tmp folder
-        string imageFileName, path = "\\tmp\\";
-        // Get gray scale result image target file name
-        cout << "Enter the result image name(saved in tmp folder at cmake) : ";
-        cin >> imageFileName;
-        //adding the extension
-        imageFileName += ".bmp";
-        path += imageFileName;
-        char cwd[PATH_MAX];
-        writeGSBMP(strcat(getcwd(cwd,sizeof(cwd)),path.c_str()), imgGS);
-    }
+    void loadImage () {
+   char imageFileName[100];
+
+   // Get gray scale image file name
+   cout << "Enter the source image file name: ";
+   cin >> imageFileName;
+
+   // Add to it .bmp extension and load image
+   strcat (imageFileName, ".bmp");
+   readGSBMP(imageFileName, imgGS);
+}
+    void saveImage () {
+   char imageFileName[100];
+
+   // Get gray scale image target file name
+   cout << "Enter the target image file name: ";
+   cin >> imageFileName;
+
+   // Add to it .bmp extension and load image
+   strcat (imageFileName, ".bmp");
+   writeGSBMP(imageFileName, imgGS);
+}
     bool is_digits(string& str)
     {
         for (char ch : str) {
@@ -71,14 +71,15 @@ public:
     void Merge_Filter()
     {
         // uploading the second image
-        string image_name,path = "\\imgs\\";
-        cout << "Please enter the name of the second image to process (NOTE: Must be in imgs folder, without .bmp):";
-        cin >> image_name;
-        path += image_name;
-        path += ".bmp";
-        char cwd[PATH_MAX];
-        readGSBMP(strcat(getcwd(cwd,sizeof(cwd)),path.c_str()),imgGS2);
+        char imageFileName[100];
 
+        // Get gray scale image file name
+        cout << "Enter the source image file name: ";
+        cin >> imageFileName;
+
+        // Add to it .bmp extension and load image
+        strcat (imageFileName, ".bmp");
+        readGSBMP(imageFileName, imgGS2);
         // Merging two photos requires
         // every pixel to be the average of
         // the 2 pixels from each photo
@@ -565,7 +566,6 @@ public:
     {
         char mod_img[256][256] = {0};
         int s, cnt;
-
         //calculate the average of every 25 pixels with the currant pixel
         for (int i = 0; i < 256; i++)
         {
@@ -591,7 +591,6 @@ public:
                 imgGS[i][j] = mod_img[i][j];
         }
     }
-
     // filter d : crop image
     void crop_image(){
         cout << "Please enter x and y seperated by space:";
@@ -677,9 +676,8 @@ public:
     void menu2() {
         cout << "Make your choice :\n"
                 "0-  Exit\n"
-                "1-  show image\n"
-                "2-  save image\n"
-                "3-  return to filter menu\n";
+                "1-  save image\n"
+                "2-  return to filter menu\n";
         string choice_s;
         cin >> choice_s;
         int choice = 0;
@@ -690,16 +688,13 @@ public:
             menu2();
         }
         if(choice == 1) {
-            show_image();
+            saveImage();
         }
         else if(choice == 2) {
-            save_image();
-        }
-        else if(choice == 3) {
             menu();
         }
         else if (choice == 0) {
-            return;
+          exit(0);
         }
 
         else {
@@ -708,7 +703,6 @@ public:
         }
         menu2();
     }
-
     void menu() {
         cout <<
              "Make your choice :\n"
@@ -770,7 +764,7 @@ public:
             skew_image_up ();
         } else if (choice == 0)
         {
-            return;
+            exit(0);
         }
         else {
             cout << "Invalid filter, please try again\n";
@@ -782,6 +776,6 @@ public:
 };
 int main() {
     photo_editor photo;
-    photo.load_image();
+    photo.loadImage();
     photo.menu();
 }

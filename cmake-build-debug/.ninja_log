@@ -1,7 +1,0 @@
-# ninja log v5
-0	1355	7183122601380732	CMakeFiles/assignment_1.dir/main.cpp.obj	5350920e0668462f
-93	1680	7183122604598944	CMakeFiles/assignment_1.dir/bmplib.cpp.obj	c665085689734cdf
-1680	3135	7183122619118366	assignment_1.exe	62461a90ebba5ebf
-4	1043	7183124598998422	CMakeFiles/assignment_1.dir/bmplib.cpp.obj	90f80ea9abdf35c5
-72	1500	7183124603566404	CMakeFiles/assignment_1.dir/main.cpp.obj	4b90b3dd9dab2842
-1500	2778	7183124616294123	assignment_1.exe	62461a90ebba5ebf
