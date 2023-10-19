@@ -4,8 +4,8 @@
 #include <unistd.h>
 #include <cmath>
 #include <cstring>
-using namespace std;
-class photo_editor{
+using namespace std; // Mahmoud Saleh - Mohammed Hemdan - Hosny Mohammed
+class photo_editor{ 
 private:
     unsigned char imgGS[SIZE][SIZE];
     unsigned char imgGS2[SIZE][SIZE];
